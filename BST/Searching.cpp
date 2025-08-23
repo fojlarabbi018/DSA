@@ -24,11 +24,11 @@ Node* search(Node*root, int key){
     }
     return NULL;
 }
-void pre_order(Node*curr){
+void in_order(Node*curr){
        if(curr==NULL) return;
+       in_order(curr->left);
        cout<<curr->data<<" ";
-       pre_order(curr->left);
-       pre_order(curr->right);
+       in_order(curr->right);
 }
 int main(){
     Node*root=new Node(20);
@@ -42,6 +42,7 @@ int main(){
     root->right->left->right=new Node(28);
     root->right->right->right=new Node(45);
     root->right->right->left=new Node(35);
+    in_order(root);
     cout<<endl;
     Node*temp=search(root,10);
     if(temp!=NULL) cout<<"Found"<<endl;
