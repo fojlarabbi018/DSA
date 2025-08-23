@@ -11,27 +11,7 @@ public:
         left=right=NULL;
     }
 };
-void insert(Node*root, int val){
-    Node*newnode=new Node(val);   
-    Node*curr=root;
-    while(1){
-        if(val<curr->data) {
-            if(curr->left==NULL) {
-                curr->left=newnode;
-                break;
-            }
-            else curr=curr->left;
-        }
-        else {
-            if(curr->right==NULL) {
-                curr->right=newnode;
-                break;
-            }
-            else curr=curr->right;
-        }
- 
-    }
-}
+
 Node* search(Node*root, int key){
     if(root==NULL) return NULL;
     Node*curr=root;
@@ -81,22 +61,28 @@ void delete_node(Node*root, int key){
     // Case 3: Something in the middle, (child, grandchild all exist)
  
 }
-void pre_order(Node*curr){
-    if(curr==NULL) return;
-    cout<<curr->data<<" ";
-    pre_order(curr->left);
-    pre_order(curr->right);
+void in_order(Node*curr){
+       if(curr==NULL) return;
+       in_order(curr->left);
+       cout<<curr->data<<" ";
+       in_order(curr->right);
 }
 int main(){
-    Node*root=new Node(100);
-    insert(root,20);
-    insert(root,500);
-    insert(root,10);
-    insert(root,30);
-    delete_node(root,500);
-    Node*temp=search(root,500);
+    Node*root=new Node(20);
+    root->left=new Node(15);
+    root->left->left=new Node(10);
+    root->left->right=new Node(18);
+    root->left->left->left=new Node(4);
+    root->right=new Node(30);
+    root->right->right=new Node(40);
+    root->right->left=new Node(25);
+    root->right->left->right=new Node(28);
+    root->right->right->right=new Node(45);
+    root->right->right->left=new Node(35);
+    delete_node(root,45);
+    Node*temp=search(root,45);
     if(temp!=NULL) cout<<"Found"<<endl;
     else cout<<"Not found"<<endl;
-    pre_order(root);
+    in_order(root);
     cout<<endl;
 }
