@@ -41,11 +41,11 @@ void insert(Node*root, int val){
  
     }
 }
-void pre_order(Node*curr){
+void in_order(Node*curr){
        if(curr==NULL) return;
+       in_order(curr->left);
        cout<<curr->data<<" ";
-       pre_order(curr->left);
-       pre_order(curr->right);
+       in_order(curr->right);
 }
 int main(){
     // If initially root is NULL,
@@ -55,5 +55,5 @@ int main(){
     insert(root,500);
     insert(root,10);
     insert(root,30);
-    pre_order(root);
+    in_order(root);
 }
