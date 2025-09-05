@@ -18,6 +18,8 @@ int main(){
     int q;
     cin >> q;
     // answering the queries
+    // Worst case for a query ---> (sqrt(n)-1) + (sqrt(n)-1) = 2*(sqrt(n)-1)
+    // (when l=0 and r=n-2)...... whatever, it's asymptotically sqrt(n)
     // O(q*sqrt(n))
     for (int p=1; p<=q; p++) {
         int l, r;
