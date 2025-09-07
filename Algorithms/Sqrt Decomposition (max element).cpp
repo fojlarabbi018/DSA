@@ -13,7 +13,10 @@ int main(){
     vector<int> b (len, 0);
     int max_b = INT_MIN;
     for (int i=0; i<n; i++) {
-        if(i % len == 0) max_b = INT_MIN;
+        // The most important part
+        if(i % len == 0){
+            max_b = INT_MIN;
+        }
         if(a[i] > max_b) {
             max_b = a[i];
             b[i / len] = max_b;
