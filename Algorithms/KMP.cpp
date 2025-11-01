@@ -1,6 +1,7 @@
 // ABCABDABCABCABD // (for lps array)
-// onionionson
-// onions
+// onionionson (n)
+// onions (m)
+// O(n + m)
 
 #include<bits/stdc++.h>
 using namespace std;
