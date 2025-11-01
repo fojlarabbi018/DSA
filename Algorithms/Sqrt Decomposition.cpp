@@ -41,3 +41,42 @@ int main(){
     }
     return 0;
 }
+
+
+// ------ Max ------//
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    int len = ceil(sqrt(n + .0));
+    vector<int> block(len, INT_MIN);
+    for(int i = 0; i < n; i++) {
+        if(block[i / len] < a[i]) block[i / len] = a[i];
+    }
+    int q;
+    cin >> q;
+    for(int p = 1; p <= q; p++) {
+        int l, r;
+        cin >> l >> r;
+        int mx = INT_MIN;
+        for(int i = l; i <= r; ) {
+            if(i % len == 0 && i + len - 1 <= r) {
+                mx = max(mx, block[i / len]);
+                i += len;
+
+            }
+            else {
+                mx = max(mx, a[i]);
+                i++;
+            }
+        }
+        cout << mx << '\n';
+
+    }
+    return 0;
+}
