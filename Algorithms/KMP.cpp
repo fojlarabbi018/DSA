@@ -1,29 +1,31 @@
-// ABC ABD ABCABC ABD //
+// ABCABDABCABCABD // (for lps array)
+// onionionson
+// onions
 
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
 
-void lps_const(string p, vector<int> &lps) {
+string s, pat;
+vector<int> lps;
+void lps_const() {
     int pre = 0;
     int suff = 1;
     lps[0] = 0;
-    while(suff < p.size()) {
-        if(p[pre] == p[suff]) {
+    while(suff < pat.size()) {
+        if(pat[pre] == pat[suff]) {
             lps[suff] = pre + 1;
             pre++;
             suff++;
         }
         else {
             if(pre == 0) suff++;
-            else {
-                pre = lps[pre - 1];
-            }
+            else pre = lps[pre - 1];
         }
 
     }
 }
-int index(string s, string pat, vector<int> &lps) {
+int kmp() {
     int first = 0;
     int second = 0;
     while(first < s.size() && second < pat.size()) {
@@ -33,9 +35,7 @@ int index(string s, string pat, vector<int> &lps) {
         }
         else {
             if(second == 0) first++;
-            else {
-                second = lps[second - 1];
-            }
+            else second = lps[second - 1];
         }
     }
     if(second == pat.size()) return first - pat.size();
@@ -44,15 +44,9 @@ int index(string s, string pat, vector<int> &lps) {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    string s;
-    cin >> s;
-    string pat;
-    cin >> pat;
-    int n = s.size();
+    cin >> s >> pat;
     int m = pat.size();
-    vector<int> lps(m);
-    lps_const(pat, lps);
-    cout << index(s, pat, lps);
-
-    return 0;
+    lps.assign(m, 0);
+    lps_const();
+    cout << kmp();
 }
