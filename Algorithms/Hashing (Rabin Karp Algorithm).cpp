@@ -4,49 +4,49 @@ using namespace std;
 
 int mod = 1e9 + 7;
 int base = 10;
+string s, pat;
 vector<int> power;
-void pow_calc(string s) {
+vector<int> ph;
+
+void pow_calc() {
     int n = s.size();
-    vector<int> temp(n + 1);
-    temp[0] = 1;
+    power[0] = 1;
     for(int i = 1; i <= n; i++) {
-        temp[i] = temp[i - 1] * base;
+        power[i] = power[i - 1] * base; // mod
     }
-    power = temp;
 }
-void prefix_hash(string s, vector<int> &ph) {
+void prefix_hash() {
     ph[0] = s[0] - '0';
     for(int i = 1; i < s.size(); i++) {
-        ph[i] = ph[i - 1] * base + s[i] - '0';
+        ph[i] = ph[i - 1] * base + (s[i] - '0'); // mod
     }
 }
-int hash_calc(int l, int r, vector<int> &ph) {
+int sub_string(int l, int r) {
     if(l == 0) return ph[r];
-    return ph[r] - ph[l - 1] * power[r - l + 1];
+    return ph[r] - ph[l - 1] * power[r - l + 1]; // mod
 }
 
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-    string s;
-    cin >> s;
-    pow_calc(s);
-    string pat;
-    cin >> pat;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cin >> s >> pat;
     int y = stoi(pat);
     int n = s.size();
     int m = pat.size();
-    vector<int> ph(n);
-    prefix_hash(s, ph);
+
+    power.assign(n + 1, 1);
+    ph.assign(n, 0);
+    pow_calc();
+    prefix_hash();
     // r (i + m - 1) cannot be out of the boundary, <= n - 1;
     for(int i = 0; i + m - 1 < n; i++) {
-        int x = hash_calc(i, i + m - 1, ph);
+        int x = sub_string(i, i + m - 1);
         if(x == y) {
             cout << pat << " " << "found at " << i << '\n'; 
         }
     }
 
 
-	return 0;
+    return 0;
 }
